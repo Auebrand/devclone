@@ -237,3 +237,7 @@ See the full terms in the [LICENSE](LICENSE) file.
 Explore the repository, report issues, and star the project on GitHub:
 
 👉 [https://github.com/Auebrand/DEVCLONE-EXTENSION](https://github.com/Auebrand/DEVCLONE-EXTENSION)
+
+## Community
+
+[DevClone on ClaudeMarket](https://claudemarket.ai/)
