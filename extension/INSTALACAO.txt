@@ -1,0 +1,30 @@
+DEVCLONE - GUIA DE INSTALACAO
+=============================
+
+COMO INSTALAR NO GOOGLE CHROME
+-----------------------------
+1. Descompacte o pacote em uma pasta no seu computador.
+2. Abra chrome://extensions no Google Chrome.
+3. Ative a opcao "Modo do desenvolvedor" no canto superior direito.
+4. Clique em "Carregar sem compactacao" (Load unpacked) e selecione a pasta da extensao DevClone.
+
+CAPTURA AVANCADA DE ALTA FIDELIDADE
+-----------------------------------
+O DevClone utiliza a permissao "debugger" do Chrome durante a captura avancada.
+Uma aba auxiliar e aberta em segundo plano para registrar os recursos reais recebidos
+pela pagina, incluindo CSS, scripts, imagens, fontes, videos, Rive, WASM e modelos 3D.
+
+IMPORTANTE DURANTE A CAPTURA
+----------------------------
+Mantenha a pagina original aberta ate o download do ZIP terminar. Nao atualize,
+nao navegue para outra URL e nao feche a aba enquanto o DevClone estiver processando.
+
+COMO TESTAR O CLONE
+-------------------
+Extraia o ZIP gerado e de dois cliques em ABRIR-SITE.cmd (ou execute preview.js com Node.js).
+O launcher inicia o servidor local, escolhe a porta automaticamente e abre o navegador.
+Nao abra o index.html diretamente via duplo clique, pois o protocolo file:// bloqueia
+recursos modernos, CORS, ES modules e fontes.
+
+Consulte VALIDACAO-DE-ANIMACOES.txt dentro de cada clone gerado.
+

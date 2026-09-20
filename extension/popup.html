@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="popup.css" />
+  <title>DevClone</title>
+</head>
+<body>
+  <div class="app">
+    <header class="head">
+      <div class="brand">
+        <div class="brand-logo-wrap">
+          <img src="assets/LOGOTIPO.svg" alt="DevClone" class="brand-logo" />
+        </div>
+        <p id="siteHost" class="host">—</p>
+      </div>
+    </header>
+
+    <section class="devclone-cap-card" id="capCard">
+      <div class="devclone-cap-top">
+        <span class="devclone-cap-kicker">CAPTURA INTELIGENTE</span>
+        <span class="devclone-live"><i class="devclone-led"></i>ATIVO</span>
+      </div>
+      <div class="devclone-cap-title">Pronto para clonar esta página</div>
+      <div class="devclone-cap-warn">
+        <span class="devclone-warn-icon">⚠</span>
+        <span>Mantenha esta aba aberta até o download terminar.</span>
+      </div>
+    </section>
+
+    <div class="stack" id="stackRow" hidden>
+      <span class="stack-lbl">Stack</span>
+      <div class="chips" id="chips"></div>
+    </div>
+
+    <section class="opts" id="opts">
+      <div class="opt-row">
+        <span class="opt-label">Escopo</span>
+        <div class="seg" id="scopeSeg">
+          <button class="seg-btn is-active" data-scope="page">Página atual</button>
+          <button class="seg-btn" data-scope="site">Site inteiro</button>
+        </div>
+      </div>
+
+      <div class="opt-row depth-row" id="depthRow" hidden>
+        <span class="opt-label">Profundidade</span>
+        <div class="seg small" id="depthSeg">
+          <button class="seg-btn" data-depth="1">1</button>
+          <button class="seg-btn is-active" data-depth="2">2</button>
+          <button class="seg-btn" data-depth="3">3</button>
+        </div>
+      </div>
+
+      <label class="switch">
+        <input type="checkbox" id="aiContext" checked />
+        <span class="track"><span class="thumb"></span></span>
+        <span class="switch-txt">Guia para recriar com IA <em>recomendado</em></span>
+      </label>
+    </section>
+
+    <button id="cloneBtn" class="clone-btn">
+      <span class="clone-btn-label">CLONAR SITE</span>
+    </button>
+
+    <section class="progress" id="progress" hidden>
+      <div class="ring-wrap">
+        <div class="ring indet" id="ring"></div>
+        <div class="ring-val" id="ringVal"><span class="ring-dot"></span></div>
+      </div>
+      <p class="phase" id="phaseMsg">Preparando…</p>
+      <div class="activity" aria-live="polite">
+        <span class="activity-live" aria-hidden="true"></span>
+        <span id="elapsed">00:00 em execução</span>
+      </div>
+      <div class="activity-track" aria-hidden="true"><i></i></div>
+      <div class="devclone-progress-note">Mantenha a página aberta até o download concluir.</div>
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-num" id="statFiles">0</span>
+          <span class="stat-lbl">arquivos</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" id="statSize">0<small>KB</small></span>
+          <span class="stat-lbl">capturado</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="result" id="result" hidden>
+      <div class="result-head">
+        <div class="check" aria-hidden="true">✓</div>
+        <div>
+          <p class="result-title">Clone concluído</p>
+          <p class="result-sub" id="resultSub">—</p>
+        </div>
+      </div>
+      <button class="errlog-toggle" id="errToggle" hidden>
+        <span id="errCount">0 assets falharam</span>
+        <span class="chev">▾</span>
+      </button>
+      <ul class="errlog" id="errList" hidden></ul>
+      <button class="again" id="againBtn">Clonar de novo</button>
+    </section>
+
+    <section class="error-box" id="errorBox" hidden>
+      <p class="error-title">Não foi possível clonar</p>
+      <p class="error-msg" id="errorMsg">—</p>
+      <button class="again" id="retryBtn">Tentar de novo</button>
+    </section>
+
+    <footer class="foot">
+      <span class="foot-local"><i></i>100% no seu navegador</span>
+      <span class="foot-note">Clone sites que você tem o direito de usar.</span>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

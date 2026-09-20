@@ -1,0 +1,37 @@
+DevClone Source-Available License
+Version 1.0
+
+Copyright (c) 2026 Auebrand / DevClone. All rights reserved.
+
+1. Grant of License
+Subject to the terms and conditions of this License, the Copyright Holder hereby grants you a worldwide, royalty-free, non-exclusive license to use, run, inspect, copy, and modify the software (the "Software"), in source code or compiled form, strictly for Personal Use, Educational Use, and Internal Business Operations.
+
+2. Permitted Uses
+You may freely:
+(a) Install and execute the DevClone Chrome Extension and Agent Skill on your devices;
+(b) Study, analyze, and reverse engineer the source code for personal or internal learning;
+(c) Modify, customize, and adapt the source code strictly for your own personal or internal organizational use.
+
+3. Commercial and Distribution Restrictions
+You may NOT, directly or indirectly, without the prior express written authorization of the Copyright Holder:
+(a) Sell, resell, rent, lease, or monetize copies of the Software, in whole or in part;
+(b) Redistribute, package, or distribute the Software (or any modified version thereof) as a commercial product, service, software-as-a-service (SaaS), or commercial distribution;
+(c) Sublicense, assign, or transfer any rights granted under this License to third parties for commercial consideration;
+(d) Create a substantially competing commercial product or service derived from this Software;
+(e) Remove, alter, or obscure any copyright notices, trademark indicators, or terms of this License in any copies of the Software.
+
+4. Rights Reserved by Copyright Holder
+Nothing in this License limits, restricts, or impairs the Copyright Holder's exclusive rights to:
+(a) Sell, distribute, monetize, or license commercial versions of DevClone;
+(b) Provide commercial installation, configuration, customization, hosting, integration, maintenance, or support services;
+(c) Grant separate commercial licensing agreements or customized permissions to third parties in writing.
+
+5. Trademark and Brand Protection
+This License does NOT grant any rights, title, or interest in or to:
+(a) The trade name "DevClone";
+(b) The DevClone logotype, symbols, icon sets, color schemes, or visual identity assets;
+(c) Associated domain names, social handles, or other distinctive brand features.
+You may not use the DevClone brand, names, or visual assets to endorse, promote, or represent any fork, derivative work, or independent software without prior written consent from the Copyright Holder.
+
+6. Disclaimer of Warranty
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

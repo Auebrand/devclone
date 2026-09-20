@@ -1,0 +1,12 @@
+{
+  "name": "devclone-engine",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Motor standalone do DevClone (Node + Playwright) — clona uma pagina (Modo 1) ou extrai o DNA visual/interativo em um Harness (Modo 2) sem depender da extensao Chrome.",
+  "bin": { "devclone-engine": "./clone.mjs" },
+  "dependencies": {
+    "playwright": "^1.56.0"
+  },
+  "engines": { "node": ">=18.17" }
+}
