@@ -241,8 +241,8 @@ async function runClone(url, opts) {
     state.validation.dependencyGaps = animationDependencyGaps(state);
     state.files.push(...getPreviewPackageFiles());
     state.files.push({ name: 'README.md', data: new TextEncoder().encode(buildReadme(pageUrl, state, opts)) });
-    state.files.push({ name: 'RELATORIO-DE-CAPTURA.txt', data: new TextEncoder().encode(buildFailureReport(pageUrl, state)) });
-    state.files.push({ name: 'VALIDACAO-DE-ANIMACOES.txt', data: new TextEncoder().encode(buildAnimationValidation(pageUrl, state)) });
+    state.files.push({ name: 'RELATORIO-TECNICO-DE-CAPTURA.txt', data: new TextEncoder().encode(buildFailureReport(pageUrl, state)) });
+    state.files.push({ name: 'VALIDACAO-E-ANALISE-DE-ANIMACOES.txt', data: new TextEncoder().encode(buildAnimationValidation(pageUrl, state)) });
     if (opts.aiContext) {
       state.files.push({ name: 'AI_CONTEXT.md', data: new TextEncoder().encode(buildAiContext(meta, pageUrl)) });
     }
@@ -450,8 +450,8 @@ async function main() {
       if (result.animationsFound.libraries.length) log(`Bibliotecas detectadas: ${result.animationsFound.libraries.join(', ')}`);
     } else {
       log(`OK — ${result.fileCount} arquivos, ${(result.bytes / 1024).toFixed(0)} KB, modo: ${result.captureMode}`);
-      if (result.errors.length) log(`${result.errors.length} asset(s) falharam — ver RELATORIO-DE-CAPTURA.txt dentro do zip.`);
-      if (result.remainingRemote) log(`${result.remainingRemote} referência(s) ainda remotas — ver VALIDACAO-DE-ANIMACOES.txt.`);
+      if (result.errors.length) log(`${result.errors.length} asset(s) falharam — ver RELATORIO-TECNICO-DE-CAPTURA.txt dentro do zip.`);
+      if (result.remainingRemote) log(`${result.remainingRemote} referência(s) ainda remotas — ver VALIDACAO-E-ANALISE-DE-ANIMACOES.txt.`);
     }
     if (result.stack && result.stack.length) log(`Stack detectada: ${result.stack.join(', ')}`);
     log(`Arquivo: ${result.outputPath}`);

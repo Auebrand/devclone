@@ -210,7 +210,7 @@ function buildFailureReport(startUrl, state) {
   const remaining = (state.validation && state.validation.remainingRemote) || [];
   const dependencyGaps = (state.validation && state.validation.dependencyGaps) || [];
   const L = [];
-  L.push('RELATÓRIO DE CAPTURA — DevClone');
+  L.push('RELATÓRIO TÉCNICO DE CAPTURA — DevClone');
   L.push('========================================');
   L.push('');
   L.push(`Site clonado : ${startUrl}`);
@@ -233,7 +233,7 @@ function buildFailureReport(startUrl, state) {
   const criticalScripts = fails.filter((e) => /\.(m?js)(\?|$)/i.test(e.url || ''));
   if (criticalScripts.length) {
     L.push('[CRITICO] Um ou mais scripts ativos nao foram obtidos. Animacoes ou interacoes');
-    L.push('podem ficar incompletas. Consulte VALIDACAO-DE-ANIMACOES.txt.');
+    L.push('podem ficar incompletas. Consulte VALIDACAO-E-ANALISE-DE-ANIMACOES.txt.');
   } else {
     L.push('Os itens abaixo nao foram obtidos. O impacto depende da funcao de cada arquivo.');
   }
@@ -302,7 +302,7 @@ function buildAnimationValidation(startUrl, state) {
   const stats = (state.validation && state.validation.stats) || {};
   const dependencyGaps = (state.validation && state.validation.dependencyGaps) || [];
   const criticalErrors = state.errors.filter((e) => /\.(m?js|wasm|riv|json)(\?|$)/i.test(e.url || ''));
-  L.push('VALIDACAO DE ANIMACOES - DevClone');
+  L.push('VALIDAÇÃO E ANÁLISE DE ANIMAÇÕES — DevClone');
   L.push('================================================');
   L.push('');
   L.push(`Origem: ${startUrl}`);
@@ -682,8 +682,8 @@ function buildReadme(startUrl, state, opts) {
   lines.push('/assets/data/        JSON, manifests e dados de animacao');
   lines.push('/pages/              outras paginas (modo site inteiro)');
   lines.push('/AI_CONTEXT.md       briefing para reconstrucao por IA');
-  lines.push('/RELATORIO-DE-CAPTURA.txt  o que veio e o que faltou (linguagem simples)');
-  lines.push('/VALIDACAO-DE-ANIMACOES.txt  verificacao de scripts e recursos dinamicos');
+  lines.push('/RELATORIO-TECNICO-DE-CAPTURA.txt  relatorio tecnico detalhado da captura e diagnostico de ativos');
+  lines.push('/VALIDACAO-E-ANALISE-DE-ANIMACOES.txt  validacao e analise de scripts, animacoes e recursos dinamicos');
   lines.push('```');
   lines.push('');
   lines.push('## Como usar');
@@ -693,13 +693,13 @@ function buildReadme(startUrl, state, opts) {
   lines.push('   Nao abra `index.html` diretamente: o protocolo `file://` bloqueia fetch,');
   lines.push('   WASM, workers, Rive, modulos JavaScript e varias animacoes modernas.');
   lines.push('2. Para recriar numa IA, abra o `AI_CONTEXT.md`: o topo traz um **prompt pronto** para colar (com a stack e a paleta ja preenchidas). Anexe este .zip na sua ferramenta (Lovable, v0, Bolt, Cursor, Claude, ChatGPT etc.) e cole o prompt.');
-  lines.push('3. Se algum arquivo faltar, abra o `RELATORIO-DE-CAPTURA.txt`: ele explica, em linguagem simples, o que nao veio e por que.');
+  lines.push('3. Se algum arquivo faltar, abra o `RELATORIO-TECNICO-DE-CAPTURA.txt`: ele explica, em detalhes tecnicos, o que nao veio e por que.');
   lines.push('');
   lines.push('## Limitacoes conhecidas');
   lines.push('- Captura apenas o **front-end entregue ao navegador**. Backend, banco e APIs privadas nao sao acessiveis.');
   lines.push('- Backend, banco, login privado, WebSocket e APIs autenticadas continuam pertencendo ao servidor original.');
   lines.push('- DRM, streaming protegido e recursos que nem a pagina original conseguiu carregar nao podem ser incorporados.');
-  lines.push('- Consulte `VALIDACAO-DE-ANIMACOES.txt` antes de considerar o clone completo.');
+  lines.push('- Consulte `VALIDACAO-E-ANALISE-DE-ANIMACOES.txt` antes de considerar o clone completo.');
   if (state.usesEsModules) {
     lines.push('- Modulos JavaScript modernos precisam do `ABRIR-SITE.cmd`; o duplo clique no `index.html` usa `file://` e bloqueia recursos.');
   }
@@ -1257,8 +1257,8 @@ async function runClone(tabId, opts, progress, sourceUrlHint = '') {
     state.validation.dependencyGaps = animationDependencyGaps(state);
     state.files.push(...getPreviewPackageFiles());
     state.files.push({ name: 'README.md', data: new TextEncoder().encode(buildReadme(pageUrl, state, opts)) });
-    state.files.push({ name: 'RELATORIO-DE-CAPTURA.txt', data: new TextEncoder().encode(buildFailureReport(pageUrl, state)) });
-    state.files.push({ name: 'VALIDACAO-DE-ANIMACOES.txt', data: new TextEncoder().encode(buildAnimationValidation(pageUrl, state)) });
+    state.files.push({ name: 'RELATORIO-TECNICO-DE-CAPTURA.txt', data: new TextEncoder().encode(buildFailureReport(pageUrl, state)) });
+    state.files.push({ name: 'VALIDACAO-E-ANALISE-DE-ANIMACOES.txt', data: new TextEncoder().encode(buildAnimationValidation(pageUrl, state)) });
     if (opts.aiContext) {
       state.files.push({ name: 'AI_CONTEXT.md', data: new TextEncoder().encode(buildAiContext(meta, pageUrl)) });
     }

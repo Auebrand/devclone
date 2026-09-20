@@ -83,8 +83,8 @@ pode agir sozinha.
 5. Reescreve HTML/CSS/JS para caminhos locais, remove `<base>` e CSP,
    injeta um pequeno shim de runtime para `fetch`/`XHR`/`Worker` quando
    necessário.
-6. Gera os relatórios (`README.md`, `RELATORIO-DE-CAPTURA.txt`,
-   `VALIDACAO-DE-ANIMACOES.txt`, `AI_CONTEXT.md` opcional) e os launchers
+6. Gera os relatórios (`README.md`, `RELATORIO-TECNICO-DE-CAPTURA.txt`,
+   `VALIDACAO-E-ANALISE-DE-ANIMACOES.txt`, `AI_CONTEXT.md` opcional) e os launchers
    locais (`ABRIR-SITE.cmd`/`.command`, servidores Node/PowerShell).
 7. Empacota tudo em `devclone_<host>_<data>.zip`.
 
@@ -221,8 +221,8 @@ abaixo (que existe para ambientes que só suportam skills de arquivo único).
   `package_clone`, `serve_clone` não são ferramentas reais) — a execução é
   sempre via script/CLI, nunca via tool call nomeada.
 - Sempre valide o resultado antes de reportar sucesso. Modo 1: confira a
-  presença dos arquivos esperados e leia `RELATORIO-DE-CAPTURA.txt` e
-  `VALIDACAO-DE-ANIMACOES.txt` — não assuma que "gerou o zip" significa
+  presença dos arquivos esperados e leia `RELATORIO-TECNICO-DE-CAPTURA.txt` e
+  `VALIDACAO-E-ANALISE-DE-ANIMACOES.txt` — não assuma que "gerou o zip" significa
   "captura completa". Modo 2: confira que `DESIGN-SYSTEM.md` tem valores
   concretos (não vazio/genérico) e que `harness/index.html` existe e abre.
 
@@ -232,7 +232,7 @@ abaixo (que existe para ambientes que só suportam skills de arquivo único).
 `js/`, `assets/{img,fonts,media,runtime,data,files}/`, `pages/` (só no
 escopo site), os launchers (`ABRIR-SITE.cmd`, `ABRIR-SITE.command`,
 `servidor-local.js`, `servidor-local.ps1`, `COMO-ABRIR.txt`), `README.md`,
-`RELATORIO-DE-CAPTURA.txt`, `VALIDACAO-DE-ANIMACOES.txt` e, se pedido,
+`RELATORIO-TECNICO-DE-CAPTURA.txt`, `VALIDACAO-E-ANALISE-DE-ANIMACOES.txt` e, se pedido,
 `AI_CONTEXT.md`. Nem todo clone tem todas as pastas — só as categorias de
 asset realmente usadas naquele site.
 
@@ -240,8 +240,8 @@ Checklist rápido (Modo 1): (1) os arquivos essenciais acima estão todos
 presentes; (2) `index.html` tem `<!DOCTYPE>`, sem `<base>`/CSP residual; (3)
 CSS/JS apontam para caminhos locais, não domínios externos, exceto o que já
 está listado como "ainda remoto" nos relatórios; (4)
-`RELATORIO-DE-CAPTURA.txt` diz "[ok] Nenhum arquivo ficou de fora" ou lista
-o que faltou e por quê; (5) `VALIDACAO-DE-ANIMACOES.txt` mostra o modo de
+`RELATORIO-TECNICO-DE-CAPTURA.txt` diz "[ok] Nenhum arquivo ficou de fora" ou lista
+o que faltou e por quê; (5) `VALIDACAO-E-ANALISE-DE-ANIMACOES.txt` mostra o modo de
 captura (`network-original` é o mais fiel) e qualquer dependência de
 animação ausente.
 
@@ -565,8 +565,8 @@ async function runClone(url, opts) {
     state.validation.dependencyGaps = animationDependencyGaps(state);
     state.files.push(...getPreviewPackageFiles());
     state.files.push({ name: 'README.md', data: new TextEncoder().encode(buildReadme(pageUrl, state, opts)) });
-    state.files.push({ name: 'RELATORIO-DE-CAPTURA.txt', data: new TextEncoder().encode(buildFailureReport(pageUrl, state)) });
-    state.files.push({ name: 'VALIDACAO-DE-ANIMACOES.txt', data: new TextEncoder().encode(buildAnimationValidation(pageUrl, state)) });
+    state.files.push({ name: 'RELATORIO-TECNICO-DE-CAPTURA.txt', data: new TextEncoder().encode(buildFailureReport(pageUrl, state)) });
+    state.files.push({ name: 'VALIDACAO-E-ANALISE-DE-ANIMACOES.txt', data: new TextEncoder().encode(buildAnimationValidation(pageUrl, state)) });
     if (opts.aiContext) {
       state.files.push({ name: 'AI_CONTEXT.md', data: new TextEncoder().encode(buildAiContext(meta, pageUrl)) });
     }
@@ -774,8 +774,8 @@ async function main() {
       if (result.animationsFound.libraries.length) log(`Bibliotecas detectadas: ${result.animationsFound.libraries.join(', ')}`);
     } else {
       log(`OK — ${result.fileCount} arquivos, ${(result.bytes / 1024).toFixed(0)} KB, modo: ${result.captureMode}`);
-      if (result.errors.length) log(`${result.errors.length} asset(s) falharam — ver RELATORIO-DE-CAPTURA.txt dentro do zip.`);
-      if (result.remainingRemote) log(`${result.remainingRemote} referência(s) ainda remotas — ver VALIDACAO-DE-ANIMACOES.txt.`);
+      if (result.errors.length) log(`${result.errors.length} asset(s) falharam — ver RELATORIO-TECNICO-DE-CAPTURA.txt dentro do zip.`);
+      if (result.remainingRemote) log(`${result.remainingRemote} referência(s) ainda remotas — ver VALIDACAO-E-ANALISE-DE-ANIMACOES.txt.`);
     }
     if (result.stack && result.stack.length) log(`Stack detectada: ${result.stack.join(', ')}`);
     log(`Arquivo: ${result.outputPath}`);
@@ -2349,54 +2349,121 @@ finally {
 }
 `;
 
-const HOW_TO_OPEN = `DEVCLONE - COMO ABRIR O PACOTE
-=====================================
+const HOW_TO_OPEN = `DEVCLONE - GUIA PARA ABRIR O CLONE LOCALMENTE
+=============================================
 
-Para obter o funcionamento completo (clone completo ou harness visual),
-utilize o launcher correspondente ao seu sistema operacional.
+Para que o site funcione com 100% de fidelidade (fontes, estilos, imagens,
+scripts, animacoes e modulos), utilize o inicializador adequado ao seu sistema.
 
-WINDOWS
--------
-1. Extraia todo o conteudo do ZIP para uma pasta.
-2. Abra a pasta extraida.
-3. De dois cliques em:
-   ABRIR-SITE.cmd
-4. O navegador sera aberto automaticamente.
-5. Mantenha a janela do servidor aberta enquanto estiver usando o pacote.
-6. Para encerrar, feche a janela do servidor ou pressione Ctrl+C.
 
+================================================================================
 MACOS
------
-1. Extraia todo o conteudo do ZIP para uma pasta.
-2. Abra a pasta extraida.
-3. De dois cliques em:
-   ABRIR-SITE.command
-4. Caso o macOS peca confirmacao de seguranca na primeira execucao:
-   - Clique com o botao direito no arquivo ABRIR-SITE.command e selecione "Abrir";
-   - Ou abra o Terminal na pasta e digite: chmod +x ABRIR-SITE.command
-5. O navegador sera aberto automaticamente.
-6. Mantenha o Terminal aberto enquanto estiver usando o pacote.
-7. Para encerrar, feche o Terminal ou utilize Ctrl+C.
+================================================================================
 
-USO MANUAL
-----------
-Se voce ja possui o Node.js ou Python instalado e prefere iniciar manualmente pelo terminal:
+1. ONDE ESTA O ARQUIVO
+   - O DevClone baixa um arquivo compactado (ex.: devclone_site_data.zip).
+   - Ele fica localizado na sua pasta padrao de "Downloads" (ou na pasta que
+     voce escolheu ao salvar).
+   - De dois cliques no arquivo .zip para descompactar. Uma pasta com os arquivos
+     do clone sera criada no mesmo local. Abra essa pasta.
 
-Com Node.js:
+2. METODO PRINCIPAL (Duplo Clique)
+   - Dentro da pasta descompactada, de dois cliques em:
+     ABRIR-SITE.command
+   - O Terminal do macOS abrira uma janela e iniciara o servidor local.
+   - O seu navegador padrao sera aberto automaticamente com a previa do site.
+   - Mantenha a janela do Terminal aberta enquanto estiver usando o clone.
+   - Para encerrar, basta fechar o Terminal ou pressionar Ctrl + C.
+
+3. RESOLVENDO BLOQUEIOS COMUNS DO MACOS (Se o launcher nao abrir)
+
+   Caso A: "Desenvolvedor nao identificado" ou "Nao pode ser verificado"
+   - Clique com o botao direito (ou segure a tecla Control e clique) no arquivo
+     ABRIR-SITE.command.
+   - Selecione "Abrir" no menu.
+   - Na janela de confirmacao que aparecer, clique novamente em "Abrir".
+
+   Caso B: "Permissao negada" (Permission Denied)
+   - O macOS pode remover a permissao de execucao de arquivos baixados da web.
+   - Para liberar, siga o passo a passo simples do Terminal abaixo.
+
+4. COMO ABRIR O TERMINAL NA PASTA (Passo a passo simples)
+
+   Opcao mais rapida (pelo Finder):
+   - Na pasta descompactada do clone, clique com o botao direito em qualquer espaco
+     vazio (ou no nome da pasta no rodape) e escolha:
+     "Novo Terminal na Pasta" (ou "Servicos" > "Novo Terminal na Pasta").
+
+   Opcao manual (arrastando a pasta):
+   - Pressione as teclas Command + Barra de Espaco, digite "Terminal" e aperte Enter.
+   - Na janela preta/branca do Terminal, digite:
+     cd 
+     (digite cd seguido de um espaco, nao aperte Enter ainda).
+   - Arraste a pasta do clone do Finder para dentro do Terminal (o caminho sera
+     preenchido automaticamente).
+   - Aperte Enter.
+
+5. COMO EXECUTAR O LAUNCHER PELO TERMINAL
+   - Se precisava de permissao, digite o comando abaixo e aperte Enter:
+     chmod +x ABRIR-SITE.command
+   - Agora inicie o servidor digitando:
+     ./ABRIR-SITE.command
+   - Aperte Enter. O servidor sera iniciado imediatamente.
+
+6. COMO ACESSAR O SITE NO NAVEGADOR
+   - O launcher tenta abrir seu navegador automaticamente.
+   - Caso nao abra sozinho, abra seu navegador (Safari, Chrome, etc.) e digite
+     na barra de enderecos:
+     http://127.0.0.1:3000
+     (ou a porta informada na janela do Terminal, ex.: http://127.0.0.1:3001).
+
+
+================================================================================
+WINDOWS
+================================================================================
+
+1. Localize o arquivo .zip baixado na sua pasta de "Downloads".
+2. Clique com o botao direito no arquivo e selecione "Extrair Tudo..." para uma pasta.
+3. Abra a pasta extraida.
+4. De dois cliques no arquivo:
+   ABRIR-SITE.cmd
+5. Uma janela preta (Prompt de Comando) iniciara o servidor e o seu navegador
+   padrao abrira o site automaticamente (http://127.0.0.1:3000).
+6. Mantenha essa janela aberta enquanto navegar no clone.
+7. Para encerrar o servidor, feche a janela ou pressione Ctrl + C.
+
+
+================================================================================
+INICIALIZACAO MANUAL (Para desenvolvedores)
+================================================================================
+
+Se voce ja tem Node.js ou Python e prefere rodar manualmente pelo terminal na pasta:
+
+- Com Node.js (recomendado):
   node servidor-local.js
 
-Com npx:
+- Com npx:
   npx serve .
 
-Com Python 3:
+- Com Python 3:
   python3 -m http.server 3000
 
-POR QUE O DUPLO CLIQUE NO INDEX.HTML NAO E O METODO PRINCIPAL?
--------------------------------------------------------------
-Sites modernos utilizam ES Modules, fetch, WebAssembly, Workers, WebGL e fontes que
-sao bloqueados pelas politicas de seguranca do navegador quando abertos diretamente
-pelo protocolo file://. O servidor local roda 100% no seu computador, de forma segura
-e offline.
+
+================================================================================
+POR QUE NAO ABRIR O INDEX.HTML COM DUPLO CLIQUE DIRETAMENTE?
+================================================================================
+
+Quando voce da duplo clique direto no index.html, o arquivo e carregado sob o
+protocolo "file://". Por medidas de seguranca dos navegadores modernos, esse modo
+bloqueia:
+- Fontes tipograficas personalizadas (WOFF2/TTF);
+- Modulos JavaScript modernos (ES Modules / import / export);
+- Requisicoes locais assincronas (fetch / XHR);
+- WebAssembly (.wasm) e animacoes complexas (Rive, GSAP, Lottie);
+- Web Workers.
+
+O servidor local embutido roda 100% no seu computador, de forma offline, rapida
+e segura, garantindo a exibicao identica ao site original.
 `;
 
 export function getPreviewPackageFiles() {
@@ -2416,7 +2483,7 @@ export function getPreviewPackageFiles() {
 ```javascript
 /**
  * reports.mjs — portado de background.js (extensão DevClone): geração de
- * README.md, RELATORIO-DE-CAPTURA.txt, VALIDACAO-DE-ANIMACOES.txt e
+ * README.md, RELATORIO-TECNICO-DE-CAPTURA.txt, VALIDACAO-E-ANALISE-DE-ANIMACOES.txt e
  * AI_CONTEXT.md para o Modo 1 (clone completo). Lógica pura de formatação
  * de texto. Os relatórios do Modo 2 (harness) ficam em harness-build.mjs.
  */
@@ -2454,7 +2521,7 @@ export function buildFailureReport(startUrl, state) {
   const remaining = (state.validation && state.validation.remainingRemote) || [];
   const dependencyGaps = (state.validation && state.validation.dependencyGaps) || [];
   const L = [];
-  L.push('RELATÓRIO DE CAPTURA — DevClone (engine standalone)');
+  L.push('RELATÓRIO TÉCNICO DE CAPTURA — DevClone (engine standalone)');
   L.push('========================================');
   L.push('');
   L.push(`Site clonado : ${startUrl}`);
@@ -2477,7 +2544,7 @@ export function buildFailureReport(startUrl, state) {
   const criticalScripts = fails.filter((e) => /\.(m?js)(\?|$)/i.test(e.url || ''));
   if (criticalScripts.length) {
     L.push('[CRITICO] Um ou mais scripts ativos nao foram obtidos. Animacoes ou interacoes');
-    L.push('podem ficar incompletas. Consulte VALIDACAO-DE-ANIMACOES.txt.');
+    L.push('podem ficar incompletas. Consulte VALIDACAO-E-ANALISE-DE-ANIMACOES.txt.');
   } else {
     L.push('Os itens abaixo nao foram obtidos. O impacto depende da funcao de cada arquivo.');
   }
@@ -2546,7 +2613,7 @@ export function buildAnimationValidation(startUrl, state) {
   const stats = (state.validation && state.validation.stats) || {};
   const dependencyGaps = (state.validation && state.validation.dependencyGaps) || [];
   const criticalErrors = state.errors.filter((e) => /\.(m?js|wasm|riv|json)(\?|$)/i.test(e.url || ''));
-  L.push('VALIDACAO DE ANIMACOES - DevClone (engine standalone)');
+  L.push('VALIDAÇÃO E ANÁLISE DE ANIMAÇÕES — DevClone (engine standalone)');
   L.push('================================================');
   L.push('');
   L.push(`Origem: ${startUrl}`);
@@ -2623,8 +2690,8 @@ export function buildReadme(startUrl, state, opts) {
   lines.push('/assets/data/        JSON, manifests e dados de animacao');
   lines.push('/pages/              outras paginas (modo site inteiro)');
   lines.push('/AI_CONTEXT.md       briefing para reconstrucao por IA');
-  lines.push('/RELATORIO-DE-CAPTURA.txt  o que veio e o que faltou (linguagem simples)');
-  lines.push('/VALIDACAO-DE-ANIMACOES.txt  verificacao de scripts e recursos dinamicos');
+  lines.push('/RELATORIO-TECNICO-DE-CAPTURA.txt  relatorio tecnico detalhado da captura e diagnostico de ativos');
+  lines.push('/VALIDACAO-E-ANALISE-DE-ANIMACOES.txt  validacao e analise de scripts, animacoes e recursos dinamicos');
   lines.push('```');
   lines.push('');
   lines.push('## Como usar');
@@ -2635,7 +2702,7 @@ export function buildReadme(startUrl, state, opts) {
   lines.push('   `file://` bloqueia fetch, WASM, workers, Rive, modulos JavaScript e');
   lines.push('   varias animacoes modernas.');
   lines.push('2. Para recriar numa IA, abra o `AI_CONTEXT.md`: o topo traz um **prompt pronto** para colar (com a stack e a paleta ja preenchidas). Anexe este .zip na sua ferramenta (Lovable, v0, Bolt, Cursor, Claude, ChatGPT etc.) e cole o prompt.');
-  lines.push('3. Se algum arquivo faltar, abra o `RELATORIO-DE-CAPTURA.txt`: ele explica, em linguagem simples, o que nao veio e por que.');
+  lines.push('3. Se algum arquivo faltar, abra o `RELATORIO-TECNICO-DE-CAPTURA.txt`: ele explica, em detalhes tecnicos, o que nao veio e por que.');
   lines.push('');
   lines.push('## Como este clone foi gerado');
   lines.push('Este pacote foi produzido pelo engine standalone do DevClone (script Node +');
@@ -2648,7 +2715,7 @@ export function buildReadme(startUrl, state, opts) {
   lines.push('- Backend, banco, login privado, WebSocket e APIs autenticadas continuam pertencendo ao servidor original.');
   lines.push('- Sem sessão/cookies de usuário: o engine vê a página como um visitante anônimo veria — conteúdo que só aparece logado não é capturado, a menos que credenciais sejam fornecidas ao Playwright separadamente.');
   lines.push('- DRM, streaming protegido e recursos que nem a pagina original conseguiu carregar nao podem ser incorporados.');
-  lines.push('- Consulte `VALIDACAO-DE-ANIMACOES.txt` antes de considerar o clone completo.');
+  lines.push('- Consulte `VALIDACAO-E-ANALISE-DE-ANIMACOES.txt` antes de considerar o clone completo.');
   if (state.usesEsModules) {
     lines.push('- Modulos JavaScript modernos precisam do `ABRIR-SITE.cmd`/`.command`; o duplo clique no `index.html` usa `file://` e bloqueia recursos.');
   }

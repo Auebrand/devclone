@@ -1,6 +1,6 @@
 /**
  * reports.mjs — portado de background.js (extensão DevClone): geração de
- * README.md, RELATORIO-DE-CAPTURA.txt, VALIDACAO-DE-ANIMACOES.txt e
+ * README.md, RELATORIO-TECNICO-DE-CAPTURA.txt, VALIDACAO-E-ANALISE-DE-ANIMACOES.txt e
  * AI_CONTEXT.md para o Modo 1 (clone completo). Lógica pura de formatação
  * de texto. Os relatórios do Modo 2 (harness) ficam em harness-build.mjs.
  */
@@ -38,7 +38,7 @@ export function buildFailureReport(startUrl, state) {
   const remaining = (state.validation && state.validation.remainingRemote) || [];
   const dependencyGaps = (state.validation && state.validation.dependencyGaps) || [];
   const L = [];
-  L.push('RELATÓRIO DE CAPTURA — DevClone (engine standalone)');
+  L.push('RELATÓRIO TÉCNICO DE CAPTURA — DevClone (engine standalone)');
   L.push('========================================');
   L.push('');
   L.push(`Site clonado : ${startUrl}`);
@@ -61,7 +61,7 @@ export function buildFailureReport(startUrl, state) {
   const criticalScripts = fails.filter((e) => /\.(m?js)(\?|$)/i.test(e.url || ''));
   if (criticalScripts.length) {
     L.push('[CRITICO] Um ou mais scripts ativos nao foram obtidos. Animacoes ou interacoes');
-    L.push('podem ficar incompletas. Consulte VALIDACAO-DE-ANIMACOES.txt.');
+    L.push('podem ficar incompletas. Consulte VALIDACAO-E-ANALISE-DE-ANIMACOES.txt.');
   } else {
     L.push('Os itens abaixo nao foram obtidos. O impacto depende da funcao de cada arquivo.');
   }
@@ -130,7 +130,7 @@ export function buildAnimationValidation(startUrl, state) {
   const stats = (state.validation && state.validation.stats) || {};
   const dependencyGaps = (state.validation && state.validation.dependencyGaps) || [];
   const criticalErrors = state.errors.filter((e) => /\.(m?js|wasm|riv|json)(\?|$)/i.test(e.url || ''));
-  L.push('VALIDACAO DE ANIMACOES - DevClone (engine standalone)');
+  L.push('VALIDAÇÃO E ANÁLISE DE ANIMAÇÕES — DevClone (engine standalone)');
   L.push('================================================');
   L.push('');
   L.push(`Origem: ${startUrl}`);
@@ -207,8 +207,8 @@ export function buildReadme(startUrl, state, opts) {
   lines.push('/assets/data/        JSON, manifests e dados de animacao');
   lines.push('/pages/              outras paginas (modo site inteiro)');
   lines.push('/AI_CONTEXT.md       briefing para reconstrucao por IA');
-  lines.push('/RELATORIO-DE-CAPTURA.txt  o que veio e o que faltou (linguagem simples)');
-  lines.push('/VALIDACAO-DE-ANIMACOES.txt  verificacao de scripts e recursos dinamicos');
+  lines.push('/RELATORIO-TECNICO-DE-CAPTURA.txt  relatorio tecnico detalhado da captura e diagnostico de ativos');
+  lines.push('/VALIDACAO-E-ANALISE-DE-ANIMACOES.txt  validacao e analise de scripts, animacoes e recursos dinamicos');
   lines.push('```');
   lines.push('');
   lines.push('## Como usar');
@@ -219,7 +219,7 @@ export function buildReadme(startUrl, state, opts) {
   lines.push('   `file://` bloqueia fetch, WASM, workers, Rive, modulos JavaScript e');
   lines.push('   varias animacoes modernas.');
   lines.push('2. Para recriar numa IA, abra o `AI_CONTEXT.md`: o topo traz um **prompt pronto** para colar (com a stack e a paleta ja preenchidas). Anexe este .zip na sua ferramenta (Lovable, v0, Bolt, Cursor, Claude, ChatGPT etc.) e cole o prompt.');
-  lines.push('3. Se algum arquivo faltar, abra o `RELATORIO-DE-CAPTURA.txt`: ele explica, em linguagem simples, o que nao veio e por que.');
+  lines.push('3. Se algum arquivo faltar, abra o `RELATORIO-TECNICO-DE-CAPTURA.txt`: ele explica, em detalhes tecnicos, o que nao veio e por que.');
   lines.push('');
   lines.push('## Como este clone foi gerado');
   lines.push('Este pacote foi produzido pelo engine standalone do DevClone (script Node +');
@@ -232,7 +232,7 @@ export function buildReadme(startUrl, state, opts) {
   lines.push('- Backend, banco, login privado, WebSocket e APIs autenticadas continuam pertencendo ao servidor original.');
   lines.push('- Sem sessão/cookies de usuário: o engine vê a página como um visitante anônimo veria — conteúdo que só aparece logado não é capturado, a menos que credenciais sejam fornecidas ao Playwright separadamente.');
   lines.push('- DRM, streaming protegido e recursos que nem a pagina original conseguiu carregar nao podem ser incorporados.');
-  lines.push('- Consulte `VALIDACAO-DE-ANIMACOES.txt` antes de considerar o clone completo.');
+  lines.push('- Consulte `VALIDACAO-E-ANALISE-DE-ANIMACOES.txt` antes de considerar o clone completo.');
   if (state.usesEsModules) {
     lines.push('- Modulos JavaScript modernos precisam do `ABRIR-SITE.cmd`/`.command`; o duplo clique no `index.html` usa `file://` e bloqueia recursos.');
   }

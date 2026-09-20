@@ -587,53 +587,121 @@ finally {
 }
 `;
 
-const HOW_TO_OPEN = `DEVCLONE - COMO ABRIR O CLONE
-=====================================
+const HOW_TO_OPEN = `DEVCLONE - GUIA PARA ABRIR O CLONE LOCALMENTE
+=============================================
 
-Para obter o funcionamento completo do clone, utilize o launcher correspondente ao seu sistema operacional.
+Para que o site funcione com 100% de fidelidade (fontes, estilos, imagens,
+scripts, animacoes e modulos), utilize o inicializador adequado ao seu sistema.
 
-WINDOWS
--------
-1. Extraia todo o conteudo do ZIP para uma pasta.
-2. Abra a pasta extraida.
-3. De dois cliques em:
-   ABRIR-SITE.cmd
-4. O navegador sera aberto automaticamente.
-5. Mantenha a janela do servidor aberta enquanto estiver usando o clone.
-6. Para encerrar, feche a janela do servidor ou pressione Ctrl+C.
 
+================================================================================
 MACOS
------
-1. Extraia todo o conteudo do ZIP para uma pasta.
-2. Abra a pasta extraida.
-3. De dois cliques em:
-   ABRIR-SITE.command
-4. Caso o macOS peca confirmacao de seguranca na primeira execucao:
-   - Clique com o botao direito no arquivo ABRIR-SITE.command e selecione "Abrir";
-   - Ou abra o Terminal na pasta e digite: chmod +x ABRIR-SITE.command
-5. O navegador sera aberto automaticamente.
-6. Mantenha o Terminal aberto enquanto estiver usando o clone.
-7. Para encerrar, feche o Terminal ou utilize Ctrl+C.
+================================================================================
 
-USO MANUAL
-----------
-Se voce ja possui o Node.js ou Python instalado e prefere iniciar manualmente pelo terminal:
+1. ONDE ESTA O ARQUIVO
+   - O DevClone baixa um arquivo compactado (ex.: devclone_site_data.zip).
+   - Ele fica localizado na sua pasta padrao de "Downloads" (ou na pasta que
+     voce escolheu ao salvar).
+   - De dois cliques no arquivo .zip para descompactar. Uma pasta com os arquivos
+     do clone sera criada no mesmo local. Abra essa pasta.
 
-Com Node.js:
+2. METODO PRINCIPAL (Duplo Clique)
+   - Dentro da pasta descompactada, de dois cliques em:
+     ABRIR-SITE.command
+   - O Terminal do macOS abrira uma janela e iniciara o servidor local.
+   - O seu navegador padrao sera aberto automaticamente com a previa do site.
+   - Mantenha a janela do Terminal aberta enquanto estiver usando o clone.
+   - Para encerrar, basta fechar o Terminal ou pressionar Ctrl + C.
+
+3. RESOLVENDO BLOQUEIOS COMUNS DO MACOS (Se o launcher nao abrir)
+
+   Caso A: "Desenvolvedor nao identificado" ou "Nao pode ser verificado"
+   - Clique com o botao direito (ou segure a tecla Control e clique) no arquivo
+     ABRIR-SITE.command.
+   - Selecione "Abrir" no menu.
+   - Na janela de confirmacao que aparecer, clique novamente em "Abrir".
+
+   Caso B: "Permissao negada" (Permission Denied)
+   - O macOS pode remover a permissao de execucao de arquivos baixados da web.
+   - Para liberar, siga o passo a passo simples do Terminal abaixo.
+
+4. COMO ABRIR O TERMINAL NA PASTA (Passo a passo simples)
+
+   Opcao mais rapida (pelo Finder):
+   - Na pasta descompactada do clone, clique com o botao direito em qualquer espaco
+     vazio (ou no nome da pasta no rodape) e escolha:
+     "Novo Terminal na Pasta" (ou "Servicos" > "Novo Terminal na Pasta").
+
+   Opcao manual (arrastando a pasta):
+   - Pressione as teclas Command + Barra de Espaco, digite "Terminal" e aperte Enter.
+   - Na janela preta/branca do Terminal, digite:
+     cd 
+     (digite cd seguido de um espaco, nao aperte Enter ainda).
+   - Arraste a pasta do clone do Finder para dentro do Terminal (o caminho sera
+     preenchido automaticamente).
+   - Aperte Enter.
+
+5. COMO EXECUTAR O LAUNCHER PELO TERMINAL
+   - Se precisava de permissao, digite o comando abaixo e aperte Enter:
+     chmod +x ABRIR-SITE.command
+   - Agora inicie o servidor digitando:
+     ./ABRIR-SITE.command
+   - Aperte Enter. O servidor sera iniciado imediatamente.
+
+6. COMO ACESSAR O SITE NO NAVEGADOR
+   - O launcher tenta abrir seu navegador automaticamente.
+   - Caso nao abra sozinho, abra seu navegador (Safari, Chrome, etc.) e digite
+     na barra de enderecos:
+     http://127.0.0.1:3000
+     (ou a porta informada na janela do Terminal, ex.: http://127.0.0.1:3001).
+
+
+================================================================================
+WINDOWS
+================================================================================
+
+1. Localize o arquivo .zip baixado na sua pasta de "Downloads".
+2. Clique com o botao direito no arquivo e selecione "Extrair Tudo..." para uma pasta.
+3. Abra a pasta extraida.
+4. De dois cliques no arquivo:
+   ABRIR-SITE.cmd
+5. Uma janela preta (Prompt de Comando) iniciara o servidor e o seu navegador
+   padrao abrira o site automaticamente (http://127.0.0.1:3000).
+6. Mantenha essa janela aberta enquanto navegar no clone.
+7. Para encerrar o servidor, feche a janela ou pressione Ctrl + C.
+
+
+================================================================================
+INICIALIZACAO MANUAL (Para desenvolvedores)
+================================================================================
+
+Se voce ja tem Node.js ou Python e prefere rodar manualmente pelo terminal na pasta:
+
+- Com Node.js (recomendado):
   node servidor-local.js
 
-Com npx:
+- Com npx:
   npx serve .
 
-Com Python 3:
+- Com Python 3:
   python3 -m http.server 3000
 
-POR QUE O DUPLO CLIQUE NO INDEX.HTML NAO E O METODO PRINCIPAL?
--------------------------------------------------------------
-Sites modernos utilizam ES Modules, fetch, WebAssembly, Workers, WebGL e fontes que
-sao bloqueados pelas politicas de seguranca do navegador quando abertos diretamente
-pelo protocolo file://. O servidor local roda 100% no seu computador, de forma segura
-e offline.
+
+================================================================================
+POR QUE NAO ABRIR O INDEX.HTML COM DUPLO CLIQUE DIRETAMENTE?
+================================================================================
+
+Quando voce da duplo clique direto no index.html, o arquivo e carregado sob o
+protocolo "file://". Por medidas de seguranca dos navegadores modernos, esse modo
+bloqueia:
+- Fontes tipograficas personalizadas (WOFF2/TTF);
+- Modulos JavaScript modernos (ES Modules / import / export);
+- Requisicoes locais assincronas (fetch / XHR);
+- WebAssembly (.wasm) e animacoes complexas (Rive, GSAP, Lottie);
+- Web Workers.
+
+O servidor local embutido roda 100% no seu computador, de forma offline, rapida
+e segura, garantindo a exibicao identica ao site original.
 `;
 
 export function getPreviewPackageFiles() {

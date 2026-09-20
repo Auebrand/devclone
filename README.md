@@ -34,7 +34,7 @@ DevClone supports two distinct workflows tailored for developers and AI reverse-
 ### 01 — Full Clone
 Captures and reconstructs the complete web experience locally for inspection, archival, or refactoring:
 - **Preserved Assets:** HTML, CSS, JavaScript, responsive images, web fonts (WOFF2/WOFF/TTF), video/audio, WebAssembly binaries (`.wasm`), Rive animations (`.riv`), Lottie JSON, and 3D assets (`.glb`/`.gltf`).
-- **Dynamic Runtime Handling:** Injects shims for local module loading, removes CSP and remote `<base>` tags, and generates diagnostic reports (`RELATORIO-DE-CAPTURA.txt`, `VALIDACAO-DE-ANIMACOES.txt`).
+- **Dynamic Runtime Handling:** Injects shims for local module loading, removes CSP and remote `<base>` tags, and generates diagnostic reports (`RELATORIO-TECNICO-DE-CAPTURA.txt`, `VALIDACAO-E-ANALISE-DE-ANIMACOES.txt`).
 - **Structured IA Context:** Generates an optional `AI_CONTEXT.md` detailing the page's color palette, typography hierarchy, landmarks, headings, and observed layout patterns.
 
 ### 02 — Visual DNA / Harness

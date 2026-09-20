@@ -26,5 +26,5 @@ O launcher inicia o servidor local, escolhe a porta automaticamente e abre o nav
 Nao abra o index.html diretamente via duplo clique, pois o protocolo file:// bloqueia
 recursos modernos, CORS, ES modules e fontes.
 
-Consulte VALIDACAO-DE-ANIMACOES.txt dentro de cada clone gerado.
+Consulte VALIDACAO-E-ANALISE-DE-ANIMACOES.txt dentro de cada clone gerado.
 

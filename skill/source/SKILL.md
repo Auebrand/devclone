@@ -83,8 +83,8 @@ pode agir sozinha.
 5. Reescreve HTML/CSS/JS para caminhos locais, remove `<base>` e CSP,
    injeta um pequeno shim de runtime para `fetch`/`XHR`/`Worker` quando
    necessário.
-6. Gera os relatórios (`README.md`, `RELATORIO-DE-CAPTURA.txt`,
-   `VALIDACAO-DE-ANIMACOES.txt`, `AI_CONTEXT.md` opcional) e os launchers
+6. Gera os relatórios (`README.md`, `RELATORIO-TECNICO-DE-CAPTURA.txt`,
+   `VALIDACAO-E-ANALISE-DE-ANIMACOES.txt`, `AI_CONTEXT.md` opcional) e os launchers
    locais (`ABRIR-SITE.cmd`/`.command`, servidores Node/PowerShell).
 7. Empacota tudo em `devclone_<host>_<data>.zip`.
 
@@ -224,8 +224,8 @@ versão mais nova que espera outro build do Chromium.
   `package_clone`, `serve_clone` não são ferramentas reais) — a execução é
   sempre via script/CLI, nunca via tool call nomeada.
 - Sempre valide o resultado antes de reportar sucesso. Modo 1: confira a
-  presença dos arquivos esperados e leia `RELATORIO-DE-CAPTURA.txt` e
-  `VALIDACAO-DE-ANIMACOES.txt` — não assuma que "gerou o zip" significa
+  presença dos arquivos esperados e leia `RELATORIO-TECNICO-DE-CAPTURA.txt` e
+  `VALIDACAO-E-ANALISE-DE-ANIMACOES.txt` — não assuma que "gerou o zip" significa
   "captura completa". Modo 2: confira que `DESIGN-SYSTEM.md` tem valores
   concretos (não vazio/genérico) e que `harness/index.html` existe e abre.
 
@@ -235,7 +235,7 @@ versão mais nova que espera outro build do Chromium.
 `js/`, `assets/{img,fonts,media,runtime,data,files}/`, `pages/` (só no
 escopo site), os launchers (`ABRIR-SITE.cmd`, `ABRIR-SITE.command`,
 `servidor-local.js`, `servidor-local.ps1`, `COMO-ABRIR.txt`), `README.md`,
-`RELATORIO-DE-CAPTURA.txt`, `VALIDACAO-DE-ANIMACOES.txt` e, se pedido,
+`RELATORIO-TECNICO-DE-CAPTURA.txt`, `VALIDACAO-E-ANALISE-DE-ANIMACOES.txt` e, se pedido,
 `AI_CONTEXT.md`. Nem todo clone tem todas as pastas — só as categorias de
 asset realmente usadas naquele site.
 
@@ -243,8 +243,8 @@ Checklist rápido (Modo 1): (1) os arquivos essenciais acima estão todos
 presentes; (2) `index.html` tem `<!DOCTYPE>`, sem `<base>`/CSP residual; (3)
 CSS/JS apontam para caminhos locais, não domínios externos, exceto o que já
 está listado como "ainda remoto" nos relatórios; (4)
-`RELATORIO-DE-CAPTURA.txt` diz "[ok] Nenhum arquivo ficou de fora" ou lista
-o que faltou e por quê; (5) `VALIDACAO-DE-ANIMACOES.txt` mostra o modo de
+`RELATORIO-TECNICO-DE-CAPTURA.txt` diz "[ok] Nenhum arquivo ficou de fora" ou lista
+o que faltou e por quê; (5) `VALIDACAO-E-ANALISE-DE-ANIMACOES.txt` mostra o modo de
 captura (`network-original` é o mais fiel) e qualquer dependência de
 animação ausente.
 

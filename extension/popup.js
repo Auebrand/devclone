@@ -209,7 +209,7 @@ function showResult(r) {
     els.errToggle.hidden = false;
     els.errCount.textContent = `${r.errors.length} sem permissão de acesso (${parts.join(', ')})`;
     els.errList.innerHTML =
-      '<li class="err-note">Estes arquivos foram bloqueados pelo site. Veja o RELATORIO-DE-CAPTURA.txt dentro do .zip para os detalhes e o que fazer.</li>' +
+      '<li class="err-note">Estes arquivos foram bloqueados pelo site. Veja o RELATORIO-TECNICO-DE-CAPTURA.txt dentro do .zip para os detalhes e o que fazer.</li>' +
       r.errors.slice(0, 200)
         .map((e) => `<li>${escapeHtml((e.url.split('/').pop() || e.url).split('?')[0])}</li>`).join('');
   } else {
