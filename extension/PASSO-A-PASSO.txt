@@ -1,0 +1,82 @@
+DEVCLONE - PASSO A PASSO PARA ABRIR O CLONE
+===========================================
+
+Para que o site funcione com 100% de fidelidade (fontes, estilos, imagens,
+scripts, animacoes e modulos), siga o passo a passo abaixo de acordo com seu sistema.
+
+
+================================================================================
+MACOS — PASSO A PASSO
+================================================================================
+
+1. BAIXAR E EXTRAIR
+   - Baixe o arquivo .zip gerado pelo DevClone.
+   - De dois cliques no arquivo .zip para abrir e extrair seu conteudo.
+   - Abra a pasta extraida do clone no Finder.
+
+2. ABRIR O TERMINAL
+   - Pressione as teclas Command (⌘) + Espaco.
+   - Digite: Terminal
+   - Pressione Enter.
+
+3. ENTRAR NA PASTA DO CLONE
+   - No Terminal, digite:
+     cd 
+     (IMPORTANTE: digite "cd" seguido de um espaco, sem pressionar Enter ainda).
+   - Arraste a pasta do clone do Finder para dentro da janela do Terminal (o caminho sera preenchido automaticamente).
+   - Pressione Enter.
+
+4. DAR PERMISSAO AO LAUNCHER
+   - No Terminal, execute o seguinte comando:
+
+     chmod +x ABRIR-SITE.command
+
+   - Pressione Enter.
+   - Se nenhuma mensagem aparecer apos executar o comando, isso e totalmente normal.
+
+5. INICIAR O CLONE
+   - No Terminal, execute o comando:
+
+     ./ABRIR-SITE.command
+
+   - Pressione Enter.
+   - Esse comando inicia o servidor local seguro e abre a previa do site no seu navegador.
+
+6. SE O NAVEGADOR NAO ABRIR
+   - Se o navegador nao abrir automaticamente, abra o seu navegador de preferencia e acesse:
+
+     http://127.0.0.1:3000
+
+   - Caso o Terminal informe uma porta diferente (ex.: 3001), utilize o endereco com a porta mostrada no Terminal.
+
+7. ENQUANTO ESTIVER USANDO
+   - Mantenha a janela do Terminal aberta enquanto estiver navegando pelo clone.
+
+8. PARA ENCERRAR
+   - Quando terminar de usar o clone, volte ao Terminal e pressione:
+
+     Control + C
+
+
+================================================================================
+WINDOWS — PASSO A PASSO
+================================================================================
+
+1. Localize o arquivo .zip baixado na sua pasta de Downloads.
+2. Clique com o botao direito no arquivo e selecione "Extrair Tudo...".
+3. Abra a pasta extraida.
+4. De dois cliques no arquivo:
+   ABRIR-SITE.cmd
+5. O Prompt de Comando iniciara o servidor local e o navegador abrira automaticamente (http://127.0.0.1:3000).
+6. Mantenha a janela aberta enquanto estiver usando o clone. Para encerrar, feche a janela ou pressione Control + C.
+
+
+================================================================================
+POR QUE NAO ABRIR O INDEX.HTML DIRETAMENTE PELO FINDER / EXPLORER?
+================================================================================
+
+Nao abra o index.html diretamente com duplo clique pelo Finder.
+Quando aberto direto, o navegador utiliza o protocolo "file://", que por motivos
+de seguranca bloqueia o carregamento de modulos JavaScript modernos, fontes web,
+requisicoes locais assincronas e outros recursos essenciais. O servidor local
+embutido roda 100% offline no seu computador e garante a execucao fiel do site.

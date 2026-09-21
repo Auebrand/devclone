@@ -234,7 +234,7 @@ versão mais nova que espera outro build do Chromium.
 **Modo 1 (clone completo):** estrutura esperada — `index.html`, `css/`,
 `js/`, `assets/{img,fonts,media,runtime,data,files}/`, `pages/` (só no
 escopo site), os launchers (`ABRIR-SITE.cmd`, `ABRIR-SITE.command`,
-`servidor-local.js`, `servidor-local.ps1`, `COMO-ABRIR.txt`), `README.md`,
+`servidor-local.js`, `servidor-local.ps1`, `PASSO-A-PASSO.txt`), `README.md`,
 `RELATORIO-TECNICO-DE-CAPTURA.txt`, `VALIDACAO-E-ANALISE-DE-ANIMACOES.txt` e, se pedido,
 `AI_CONTEXT.md`. Nem todo clone tem todas as pastas — só as categorias de
 asset realmente usadas naquele site.

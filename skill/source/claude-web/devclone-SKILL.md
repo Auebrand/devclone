@@ -231,7 +231,7 @@ abaixo (que existe para ambientes que só suportam skills de arquivo único).
 **Modo 1 (clone completo):** estrutura esperada — `index.html`, `css/`,
 `js/`, `assets/{img,fonts,media,runtime,data,files}/`, `pages/` (só no
 escopo site), os launchers (`ABRIR-SITE.cmd`, `ABRIR-SITE.command`,
-`servidor-local.js`, `servidor-local.ps1`, `COMO-ABRIR.txt`), `README.md`,
+`servidor-local.js`, `servidor-local.ps1`, `PASSO-A-PASSO.txt`), `README.md`,
 `RELATORIO-TECNICO-DE-CAPTURA.txt`, `VALIDACAO-E-ANALISE-DE-ANIMACOES.txt` e, se pedido,
 `AI_CONTEXT.md`. Nem todo clone tem todas as pastas — só as categorias de
 asset realmente usadas naquele site.
@@ -1798,7 +1798,7 @@ if %errorlevel%==0 (
 
 echo.
 echo Nao foi possivel iniciar a previa automaticamente.
-echo Consulte COMO-ABRIR.txt para usar um servidor alternativo.
+echo Consulte PASSO-A-PASSO.txt para usar um servidor alternativo.
 echo.
 pause
 exit /b 1
@@ -1862,7 +1862,7 @@ if command -v python >/dev/null 2>&1; then
 fi
 
 echo "Nao foi possivel iniciar o servidor automaticamente."
-echo "Instale o Node.js ou consulte o arquivo COMO-ABRIR.txt."
+echo "Instale o Node.js ou consulte o arquivo PASSO-A-PASSO.txt."
 echo ""
 read -p "Pressione Enter para sair..."
 exit 1
@@ -2349,121 +2349,88 @@ finally {
 }
 `;
 
-const HOW_TO_OPEN = `DEVCLONE - GUIA PARA ABRIR O CLONE LOCALMENTE
-=============================================
+const HOW_TO_OPEN = `DEVCLONE - PASSO A PASSO PARA ABRIR O CLONE
+===========================================
 
 Para que o site funcione com 100% de fidelidade (fontes, estilos, imagens,
-scripts, animacoes e modulos), utilize o inicializador adequado ao seu sistema.
+scripts, animacoes e modulos), siga o passo a passo abaixo de acordo com seu sistema.
 
 
 ================================================================================
-MACOS
+MACOS — PASSO A PASSO
 ================================================================================
 
-1. ONDE ESTA O ARQUIVO
-   - O DevClone baixa um arquivo compactado (ex.: devclone_site_data.zip).
-   - Ele fica localizado na sua pasta padrao de "Downloads" (ou na pasta que
-     voce escolheu ao salvar).
-   - De dois cliques no arquivo .zip para descompactar. Uma pasta com os arquivos
-     do clone sera criada no mesmo local. Abra essa pasta.
+1. BAIXAR E EXTRAIR
+   - Baixe o arquivo .zip gerado pelo DevClone.
+   - De dois cliques no arquivo .zip para abrir e extrair seu conteudo.
+   - Abra a pasta extraida do clone no Finder.
 
-2. METODO PRINCIPAL (Duplo Clique)
-   - Dentro da pasta descompactada, de dois cliques em:
-     ABRIR-SITE.command
-   - O Terminal do macOS abrira uma janela e iniciara o servidor local.
-   - O seu navegador padrao sera aberto automaticamente com a previa do site.
-   - Mantenha a janela do Terminal aberta enquanto estiver usando o clone.
-   - Para encerrar, basta fechar o Terminal ou pressionar Ctrl + C.
+2. ABRIR O TERMINAL
+   - Pressione as teclas Command (⌘) + Espaco.
+   - Digite: Terminal
+   - Pressione Enter.
 
-3. RESOLVENDO BLOQUEIOS COMUNS DO MACOS (Se o launcher nao abrir)
-
-   Caso A: "Desenvolvedor nao identificado" ou "Nao pode ser verificado"
-   - Clique com o botao direito (ou segure a tecla Control e clique) no arquivo
-     ABRIR-SITE.command.
-   - Selecione "Abrir" no menu.
-   - Na janela de confirmacao que aparecer, clique novamente em "Abrir".
-
-   Caso B: "Permissao negada" (Permission Denied)
-   - O macOS pode remover a permissao de execucao de arquivos baixados da web.
-   - Para liberar, siga o passo a passo simples do Terminal abaixo.
-
-4. COMO ABRIR O TERMINAL NA PASTA (Passo a passo simples)
-
-   Opcao mais rapida (pelo Finder):
-   - Na pasta descompactada do clone, clique com o botao direito em qualquer espaco
-     vazio (ou no nome da pasta no rodape) e escolha:
-     "Novo Terminal na Pasta" (ou "Servicos" > "Novo Terminal na Pasta").
-
-   Opcao manual (arrastando a pasta):
-   - Pressione as teclas Command + Barra de Espaco, digite "Terminal" e aperte Enter.
-   - Na janela preta/branca do Terminal, digite:
+3. ENTRAR NA PASTA DO CLONE
+   - No Terminal, digite:
      cd 
-     (digite cd seguido de um espaco, nao aperte Enter ainda).
-   - Arraste a pasta do clone do Finder para dentro do Terminal (o caminho sera
-     preenchido automaticamente).
-   - Aperte Enter.
+     (IMPORTANTE: digite "cd" seguido de um espaco, sem pressionar Enter ainda).
+   - Arraste a pasta do clone do Finder para dentro da janela do Terminal (o caminho sera preenchido automaticamente).
+   - Pressione Enter.
 
-5. COMO EXECUTAR O LAUNCHER PELO TERMINAL
-   - Se precisava de permissao, digite o comando abaixo e aperte Enter:
+4. DAR PERMISSAO AO LAUNCHER
+   - No Terminal, execute o seguinte comando:
+
      chmod +x ABRIR-SITE.command
-   - Agora inicie o servidor digitando:
+
+   - Pressione Enter.
+   - Se nenhuma mensagem aparecer apos executar o comando, isso e totalmente normal.
+
+5. INICIAR O CLONE
+   - No Terminal, execute o comando:
+
      ./ABRIR-SITE.command
-   - Aperte Enter. O servidor sera iniciado imediatamente.
 
-6. COMO ACESSAR O SITE NO NAVEGADOR
-   - O launcher tenta abrir seu navegador automaticamente.
-   - Caso nao abra sozinho, abra seu navegador (Safari, Chrome, etc.) e digite
-     na barra de enderecos:
+   - Pressione Enter.
+   - Esse comando inicia o servidor local seguro e abre a previa do site no seu navegador.
+
+6. SE O NAVEGADOR NAO ABRIR
+   - Se o navegador nao abrir automaticamente, abra o seu navegador de preferencia e acesse:
+
      http://127.0.0.1:3000
-     (ou a porta informada na janela do Terminal, ex.: http://127.0.0.1:3001).
+
+   - Caso o Terminal informe uma porta diferente (ex.: 3001), utilize o endereco com a porta mostrada no Terminal.
+
+7. ENQUANTO ESTIVER USANDO
+   - Mantenha a janela do Terminal aberta enquanto estiver navegando pelo clone.
+
+8. PARA ENCERRAR
+   - Quando terminar de usar o clone, volte ao Terminal e pressione:
+
+     Control + C
 
 
 ================================================================================
-WINDOWS
+WINDOWS — PASSO A PASSO
 ================================================================================
 
-1. Localize o arquivo .zip baixado na sua pasta de "Downloads".
-2. Clique com o botao direito no arquivo e selecione "Extrair Tudo..." para uma pasta.
+1. Localize o arquivo .zip baixado na sua pasta de Downloads.
+2. Clique com o botao direito no arquivo e selecione "Extrair Tudo...".
 3. Abra a pasta extraida.
 4. De dois cliques no arquivo:
    ABRIR-SITE.cmd
-5. Uma janela preta (Prompt de Comando) iniciara o servidor e o seu navegador
-   padrao abrira o site automaticamente (http://127.0.0.1:3000).
-6. Mantenha essa janela aberta enquanto navegar no clone.
-7. Para encerrar o servidor, feche a janela ou pressione Ctrl + C.
+5. O Prompt de Comando iniciara o servidor local e o navegador abrira automaticamente (http://127.0.0.1:3000).
+6. Mantenha a janela aberta enquanto estiver usando o clone. Para encerrar, feche a janela ou pressione Control + C.
 
 
 ================================================================================
-INICIALIZACAO MANUAL (Para desenvolvedores)
+POR QUE NAO ABRIR O INDEX.HTML DIRETAMENTE PELO FINDER / EXPLORER?
 ================================================================================
 
-Se voce ja tem Node.js ou Python e prefere rodar manualmente pelo terminal na pasta:
-
-- Com Node.js (recomendado):
-  node servidor-local.js
-
-- Com npx:
-  npx serve .
-
-- Com Python 3:
-  python3 -m http.server 3000
-
-
-================================================================================
-POR QUE NAO ABRIR O INDEX.HTML COM DUPLO CLIQUE DIRETAMENTE?
-================================================================================
-
-Quando voce da duplo clique direto no index.html, o arquivo e carregado sob o
-protocolo "file://". Por medidas de seguranca dos navegadores modernos, esse modo
-bloqueia:
-- Fontes tipograficas personalizadas (WOFF2/TTF);
-- Modulos JavaScript modernos (ES Modules / import / export);
-- Requisicoes locais assincronas (fetch / XHR);
-- WebAssembly (.wasm) e animacoes complexas (Rive, GSAP, Lottie);
-- Web Workers.
-
-O servidor local embutido roda 100% no seu computador, de forma offline, rapida
-e segura, garantindo a exibicao identica ao site original.
+Nao abra o index.html diretamente com duplo clique pelo Finder.
+Quando aberto direto, o navegador utiliza o protocolo "file://", que por motivos
+de seguranca bloqueia o carregamento de modulos JavaScript modernos, fontes web,
+requisicoes locais assincronas e outros recursos essenciais. O servidor local
+embutido roda 100% offline no seu computador e garante a execucao fiel do site.
 `;
 
 export function getPreviewPackageFiles() {
@@ -2473,7 +2440,7 @@ export function getPreviewPackageFiles() {
     { name: 'ABRIR-SITE.command', data: encoder.encode(MACOS_LAUNCHER.replace(/\r\n/g, '\n')) },
     { name: 'servidor-local.js', data: encoder.encode(NODE_SERVER) },
     { name: 'servidor-local.ps1', data: encoder.encode(POWERSHELL_SERVER.replace(/\n/g, '\r\n')) },
-    { name: 'COMO-ABRIR.txt', data: encoder.encode(HOW_TO_OPEN.replace(/\n/g, '\r\n')) },
+    { name: 'PASSO-A-PASSO.txt', data: encoder.encode(HOW_TO_OPEN.replace(/\n/g, '\r\n')) },
   ];
 }
 ```
