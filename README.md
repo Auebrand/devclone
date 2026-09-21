@@ -1,243 +1,183 @@
 # DevClone
 
-Chrome Extension + Agent Skill
+## Agent Skill para clonagem e engenharia reversa visual de interfaces
 
-DevClone is a local-first web extraction tool that enables developers to capture living web experiences directly in the browser and extract design systems into an interactive Visual Harness. Built for local processing without mandatory proprietary backends, telemetry, or account gating, DevClone accesses target web pages directly during capture and reconstructs dynamic experiences into standalone `.zip` bundles ready for local execution and AI-assisted reverse engineering.
+DevClone é uma Agent Skill criada para capturar páginas e sites, reconstruir experiências web localmente e extrair o DNA visual e interativo de interfaces para uso em fluxos de desenvolvimento com IA.
 
-![DevClone Demo](docs/media/devclone-demo.gif)
+O projeto público é focado na **DevClone Skill**. A distribuição comercial da extensão de navegador é mantida separadamente e não faz parte deste repositório público.
 
-<p align="center">
-  <a href="https://github.com/Auebrand/DEVCLONE-EXTENSION">⭐ Star on GitHub</a> &nbsp;•&nbsp;
-  <a href="docs/media/devclone-demo.gif">▶️ View Demo</a>
-</p>
+## O que a DevClone Skill faz
 
----
-
-## The Chrome Extension
-
-![DevClone Extension](docs/media/devclone-preview.png)
-
-The **DevClone Chrome Extension** runs as a native Manifest V3 tool in your browser. Unlike traditional page savers that only preserve initial static HTML, DevClone records network requests and living DOM nodes during execution to produce high-fidelity offline clones:
-
-- **Deep Runtime Capture via CDP:** Uses Chrome DevTools Protocol (`chrome.debugger`) to record exact network responses, capturing protected scripts, WebAssembly, fonts, videos, and dynamic runtime assets that would otherwise return HTTP 403 on isolated downloads.
-- **Client-Side Stack Detection:** Inspects DOM structures and runtime globals to identify frameworks and libraries (Next.js, React, Vue, Nuxt, Tailwind CSS, GSAP, Three.js, Swiper, Lenis, Framer, and more).
-- **ES Module & CSS Asset Resolution:** Traverses and rewrites module dependency graphs (`import`/`export` specifiers, `@import`, and `url(...)` declarations) to relative local paths.
-- **Chunked Native ZIP Packaging:** Packages assets in-memory using the browser's native `CompressionStream('deflate-raw')` and transfers chunks through an offscreen document to avoid memory limits.
-- **Zero-Config Local Preview:** Injects cross-platform local servers (`ABRIR-SITE.command` for macOS, `ABRIR-SITE.cmd` for Windows, and `servidor-local.js` for Node.js) into every clone, eliminating `file://` security policy issues.
-
----
-
-## Two modes
-
-DevClone supports two distinct workflows tailored for developers and AI reverse-engineering tasks:
+A Skill possui dois modos principais.
 
 ### 01 — Full Clone
-Captures and reconstructs the complete web experience locally for inspection, archival, or refactoring:
-- **Preserved Assets:** HTML, CSS, JavaScript, responsive images, web fonts (WOFF2/WOFF/TTF), video/audio, WebAssembly binaries (`.wasm`), Rive animations (`.riv`), Lottie JSON, and 3D assets (`.glb`/`.gltf`).
-- **Dynamic Runtime Handling:** Injects shims for local module loading, removes CSP and remote `<base>` tags, and generates diagnostic reports (`RELATORIO-TECNICO-DE-CAPTURA.txt`, `VALIDACAO-E-ANALISE-DE-ANIMACOES.txt`).
-- **Structured IA Context:** Generates an optional `AI_CONTEXT.md` detailing the page's color palette, typography hierarchy, landmarks, headings, and observed layout patterns.
 
-### 02 — Visual DNA / Harness
-Focuses strictly on extracting the design system and interactive micro-behavior without cloning the website's full content or textual pages:
-- **Design Tokens:** Real computed values extracted via browser inspection (`getComputedStyle`), including primary/secondary palettes, font families, modular type scales, container widths, spacing scales, border radii, and box shadows.
-- **Real Button States:** Measures interactive button variants across default, `:hover`, and `:focus` states using programmatic viewport interaction.
-- **Animation Extraction:** Parses captured CSS and JS to isolate active `@keyframes`, CSS transitions, and library controller logic (GSAP, Framer Motion, Lenis, Swiper).
-- **Interactive Mini-App:** Compiles everything into `harness/index.html`—a standalone, navigable HTML/CSS/JS sandbox demonstrating the extracted tokens and animations live in the browser.
+Captura uma página ou site e gera uma versão local funcional.
 
----
+O pipeline pode trabalhar com:
 
-## Chrome Extension
+- HTML renderizado
+- CSS
+- JavaScript
+- imagens
+- fontes
+- vídeos e áudio
+- WebAssembly
+- Lottie
+- Rive
+- GSAP e outras animações detectáveis
+- assets 3D
+- módulos ES
+- recursos carregados dinamicamente
 
-The extension operates locally in your browser. It communicates directly with your active tab and debugger session without transmitting captured content to external proprietary servers.
+O resultado é empacotado em um `.zip` preparado para execução local.
 
-### Install
+### 02 — Visual DNA / Visual Harness
 
-1. Clone or download this repository:
-   ```bash
-   git clone https://github.com/Auebrand/DEVCLONE-EXTENSION.git
-   ```
-2. Open Google Chrome and navigate to `chrome://extensions/`.
-3. Enable **Developer mode** in the top-right corner.
-4. Click **Load unpacked** (*Carregar sem compactação*).
-5. Select the `extension/` directory from this repository:
-   ```text
-   DEVCLONE/extension/
-   ```
-6. The DevClone icon will appear in your Chrome toolbar, ready for use on any HTTP/HTTPS webpage.
+Extrai o sistema visual e interativo de uma interface sem entregar o conteúdo completo do site original.
 
----
+Pode identificar:
+
+- paleta de cores
+- tipografia
+- escala de tamanhos
+- espaçamentos
+- containers e grids
+- breakpoints
+- bordas e arredondamentos
+- sombras
+- componentes
+- botões e estados
+- inputs
+- navegação
+- transições
+- animações
+- interações observadas
+
+O resultado inclui valores concretos, documentação do Design System, código de animações/interações encontradas e um **Visual Harness funcional**.
 
 ## Agent Skill
 
-Beyond the Chrome Extension, DevClone is available as an autonomous **Agent Skill** for coding agents and terminal workflows. It runs headless via Node.js and Playwright, providing both Full Clone and Visual Harness extraction directly from the command line or within conversational AI environments.
+A DevClone Skill segue o formato de Agent Skills baseado em `SKILL.md` e scripts auxiliares.
 
-### Claude Web / direct installation
+Estrutura principal:
 
-- **Distribution Artifact:** `skill/devclone.skill`
-- A pre-packaged, self-contained zip artifact designed for direct installation into Claude Web or compatible skill-based interfaces.
-- Requires no manual Playwright configuration on the user's side when imported into containerized sandbox environments.
-
-### Terminal / agent environments
-
-For CLI agents, terminal environments, and IDEs (such as Claude Code, Cursor, Codex, and Antigravity), the full source code is available in:
 ```text
-skill/source/
-├── SKILL.md
-├── claude-web/
-│   └── devclone-SKILL.md
-└── scripts/
-    └── engine/
-        ├── clone.mjs
-        ├── package.json
-        ├── lib/
-        └── vendor/
+skill/
+├── devclone.skill
+└── source/
+    ├── SKILL.md
+    ├── claude-web/
+    │   └── devclone-SKILL.md
+    └── scripts/
+        └── engine/
+            ├── clone.mjs
+            ├── package.json
+            ├── lib/
+            └── vendor/
 ```
 
-- Powered by a headless Node.js engine (`clone.mjs`) orchestrating Chromium through Playwright.
-- Executes two-pass network capture (desktop and mobile viewport emulation) implementing an equivalent resolution and rewriting pipeline to the Chrome Extension.
+A Skill pode ser utilizada em ambientes compatíveis com Agent Skills, incluindo fluxos com **Claude Code, Codex, Cursor e Antigravity**, entre outros ambientes compatíveis.
 
----
+## Instalação pelo repositório
 
-## Quick start
-
-### Extension
-
-1. Load `extension/` in Chrome via `chrome://extensions/`.
-2. Navigate to any website.
-3. Open the DevClone popup and click **CLONAR SITE**.
-
-### Agent Skill (CLI / Headless)
-
-From the project root:
+Clone o projeto:
 
 ```bash
-# Navigate to the standalone engine
-cd skill/source/scripts/engine
+git clone https://github.com/Auebrand/devclone.git
+cd devclone
+```
 
-# Install dependencies
+A Skill está em:
+
+```text
+skill/source/
+```
+
+Para ambientes que utilizam uma pasta local de Skills, copie ou vincule essa pasta para o diretório de Skills utilizado pelo ambiente.
+
+Exemplo de instalação em um diretório de Skills:
+
+```bash
+mkdir -p ~/.agents/skills
+cp -R skill/source ~/.agents/skills/devclone
+```
+
+O caminho exato pode variar conforme o agente/IDE.
+
+## Execução do engine
+
+O engine standalone utiliza Node.js + Playwright.
+
+```bash
+cd skill/source/scripts/engine
 npm install
 npx playwright install chromium
+```
 
-# Mode 1: Full Clone
+Modo 1:
+
+```bash
 node clone.mjs https://example.com --mode full
+```
 
-# Mode 2: Visual DNA & Harness
+Modo 2:
+
+```bash
 node clone.mjs https://example.com --mode harness
 ```
 
----
-
-## Architecture
-
-DevClone is architected around two complementary implementations sharing consistent extraction logic:
+## Arquitetura
 
 ```text
 DevClone
-├── Chrome Extension (Manifest V3)
-│   ├── Popup UI (Options & Stack Display)
-│   ├── Background Service Worker
-│   ├── CDP Bridge & Network Capture
-│   ├── Content Script (DOM Inspection & URL Rewriting)
-│   ├── Recursive Asset, CSS & ES Module Resolution
-│   └── Native ZIP & Preview Package Generation
-│
 └── Agent Skill
-    ├── SKILL.md (Agent Instructions)
-    ├── devclone.skill (Claude Web Portable Artifact)
-    └── Node.js + Playwright Standalone Engine
-        ├── Mode 1: Full Clone (Offline bundle)
-        └── Mode 2: Visual DNA / Harness (Design System)
+    ├── SKILL.md
+    ├── Portable Skill Artifact
+    └── Node.js + Playwright Engine
+        ├── Mode 1 — Full Clone
+        └── Mode 2 — Visual DNA / Harness
 ```
 
----
+O engine é modular e possui componentes para captura via CDP/Playwright, resolução de assets, análise de stack, extração de Design System, análise de animações, construção do Harness, relatórios, preview e empacotamento.
 
-## Repository Structure
+## Privacidade e execução local
+
+O projeto foi desenvolvido para processamento local:
+
+- sem conta obrigatória;
+- sem telemetria proprietária;
+- sem backend proprietário obrigatório;
+- captura diretamente a página alvo a partir do ambiente de execução;
+- processamento e empacotamento acontecem localmente.
+
+Sites com mecanismos de proteção, autenticação, CSP ou bloqueios anti-bot podem limitar o que pode ser capturado.
+
+## Estrutura do repositório
 
 ```text
 DEVCLONE/
-├── extension/          # Chrome Extension (Manifest V3 unpacked source)
 ├── skill/
-│   ├── devclone.skill  # Portable artifact for Claude Web and AI skill environments
-│   └── source/         # Standalone Node.js + Playwright engine and agent guides
+│   ├── devclone.skill
+│   └── source/
 ├── docs/
-│   └── media/          # Official visual documentation assets (demo GIF & preview PNG)
-├── README.md           # Project documentation and architecture guide
-└── .gitignore          # Repository ignore rules
+├── README.md
+├── LICENSE
+└── .gitignore
 ```
 
-- `extension/`: Pure client-side browser extension source code, icons, manifest, and background worker.
-- `skill/`: Includes the portable `.skill` package and the decoupled Node.js CLI engine with modular libraries.
-- `docs/media/`: Visual demonstrations and interface captures embedded in this documentation.
+## Comunidade
 
----
+[DevClone on ClaudeMarket](https://claudemarket.ai/)
 
-## Development
+## Licença
 
-### Extension
-
-The Chrome extension uses native JavaScript without a compilation or bundling step.
-
-- **Load in Browser:** Navigate to `chrome://extensions/`, enable Developer Mode, and click *Load unpacked* selecting `extension/`.
-- **Syntax Check:**
-  ```bash
-  node --check extension/*.js
-  ```
-
-### Skill Engine
-
-The standalone engine requires Node.js (>= 18.17) and Playwright.
-
-- **Setup:**
-  ```bash
-  cd skill/source/scripts/engine
-  npm install
-  npx playwright install chromium
-  ```
-- **Syntax Check:**
-  ```bash
-  node --check clone.mjs lib/*.mjs vendor/*.js
-  ```
-- **CLI Options:**
-  ```bash
-  node clone.mjs --help
-  ```
-
----
-
-## Security & Privacy
-
-DevClone is designed around local execution principles:
-
-- **Local Processing:** All DOM parsing, style computation, asset rewriting, and ZIP generation happen directly on your machine.
-- **Direct Target Requests:** Network traffic during capture occurs exclusively between your environment and the target website being analyzed.
-- **No Proprietary Telemetry:** There are no analytics, cloud backends, licensing verification servers, or account gates built into the project.
-- **Sensitive Endpoint Filtering:** Network capture rules in `capture.js` actively filter out typical authentication, account, session, and checkout endpoints (`/auth`, `/checkout`, `/account`, `/sessions`) to prevent saving sensitive session responses.
-- **DOM Password Manager Filters:** Content inspection scripts ignore nodes injected by password managers (e.g., 1Password, LastPass).
-- **Codebase Secrets Audit:** Automated static analysis confirmed zero hardcoded API keys, tokens, or private credentials within this repository.
-
----
-
-## License
-
-DevClone is distributed under a **Source-Available License**.
+DevClone é distribuído sob uma licença Source-Available.
 
 **Free to use. Not free to resell.**
 
-- **Permitted:** Free for personal, educational, and internal business use. Code inspection, learning, and custom modifications for your own use are fully permitted.
-- **Restrictions:** Commercial redistribution, reselling, sublicensing, packaging into competing commercial products, or distributing commercial derivatives is strictly prohibited without prior written authorization from the copyright holder.
-- **Trademarks:** This license does not grant rights to the "DevClone" name, logotype, symbols, or official brand assets.
-- **Commercial Rights:** The copyright holder retains the exclusive right to commercialize DevClone, provide official commercial versions, and offer paid support or integration services.
-
-See the full terms in the [LICENSE](LICENSE) file.
-
----
+Consulte o arquivo [LICENSE](LICENSE) para os termos completos.
 
 ## GitHub
 
-Explore the repository, report issues, and star the project on GitHub:
-
-👉 [https://github.com/Auebrand/DEVCLONE-EXTENSION](https://github.com/Auebrand/DEVCLONE-EXTENSION)
-
-## Community
-
-[DevClone on ClaudeMarket](https://claudemarket.ai/)
+[https://github.com/Auebrand/devclone](https://github.com/Auebrand/devclone)
